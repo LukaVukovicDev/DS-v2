@@ -20,6 +20,7 @@ namespace GUI
         {
             InitializeComponent();
             this.Title = ConfigManager.Instance.ChainName;
+            DataContext = new MainWindowViewModel();
         }
     }
 }

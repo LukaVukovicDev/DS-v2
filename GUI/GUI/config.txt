@@ -1,2 +1,2 @@
-CoWork System2
+TheRes System2
 Server=localhost;Database=CoWorkingDB;Trusted_Connection=True;
