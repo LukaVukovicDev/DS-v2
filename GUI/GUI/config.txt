@@ -1,0 +1,2 @@
+CoWork System2
+Server=localhost;Database=CoWorkingDB;Trusted_Connection=True;
