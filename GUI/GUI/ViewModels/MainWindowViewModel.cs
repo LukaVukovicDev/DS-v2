@@ -16,7 +16,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
         // Dummy data za test
         Users.Add(new User { Id = 1, Name = "Marko Markovic", Email = "marko@email.com", MembershipType = "Premium", Status = "Active" });
-        Locations.Add(new Location { Id = 1, Name = "Beograd", City = "Belgrade", MaxCapacity = 50 });
+        Locations.Add(new Location { Id = 1, Name = "Beograd", City = "Beograd", MaxCapacity = 50 });
         Reservations.Add(new Reservation { Id = 1, UserName = "Marko Markovic", ResourceName = "Desk 1", StartTime = "2026-03-05 09:00", EndTime = "2026-03-05 12:00", Status = "Active" });
     }
 

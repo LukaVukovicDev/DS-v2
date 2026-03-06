@@ -1,30 +1,109 @@
-﻿<Window x:Class="GUI.MainWindow"
+﻿
+    
+    <Window x:Class="GUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Co-Working Management" Height="600" Width="900">
-    <DockPanel>
-        <!-- Naslov sa imenom lanca -->
-        <TextBlock Text="{Binding ChainName}" 
-                   FontSize="20" FontWeight="Bold" 
-                   Margin="10" DockPanel.Dock="Top"/>
+
+    <!-- Glavni window za upravljanje -->
+        <DockPanel>
+        <!-- Top bar -->
+        <Grid DockPanel.Dock="Top" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Naziv -->
+            <TextBlock Text="{Binding ChainName}"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+
+            <!-- Logout -->
+            <Button Content="Logout"
+                    Grid.Column="1"
+                    Width="80"
+                    Height="30"
+                    Click="Logout_Click"/>
+        </Grid>
 
         <TabControl>
             <!-- Korisnici -->
             <TabItem Header="Users">
-                <DataGrid ItemsSource="{Binding Users}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" Margin="10">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
-                        <DataGridTextColumn Header="Membership" Binding="{Binding MembershipType}" />
-                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <StackPanel>
+
+                    <!-- Search + Filters -->
+                    <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Left" >
+
+                        <!-- Search -->
+                        <TextBox Width="200"
+                     Name="SearchBox"
+                     TextChanged="SearchBox_TextChanged"
+                     ToolTip="Search user"/>
+
+                        <!-- Location filter -->
+                        <ComboBox Width="150"
+                              Name="LocationFilter"
+                              SelectionChanged="Filter_Changed"
+                                  SelectedIndex="0">
+
+                            <ComboBoxItem Content="All"/>
+                            <ComboBoxItem Content="Beograd"/>
+                            <ComboBoxItem Content="Niš"/>
+                            <ComboBoxItem Content="Novi Sad"/>
+                            <ComboBoxItem Content="Kragujevac"/>
+
+                        </ComboBox>
+
+                        <!-- Membership filter -->
+                        <ComboBox Width="150"
+                      Name="MembershipFilter"
+                      SelectionChanged="Filter_Changed"
+                                  SelectedIndex="0">
+                            <ComboBoxItem Content="All"/>
+                            <ComboBoxItem Content="dnevna karta"/>
+                            <ComboBoxItem Content="fleksibilni sto"/>
+                            <ComboBoxItem Content="fiksni sto"/>
+                            <ComboBoxItem Content="premium"/>
+                           
+                        </ComboBox>
+
+                        <!-- Status filter -->
+                        <ComboBox Width="150"
+                      Name="StatusFilter"
+                      SelectionChanged="Filter_Changed"
+                                  SelectedIndex="0">
+                            <ComboBoxItem Content="All"/>
+                            <ComboBoxItem Content="Aktivan"/>
+                            <ComboBoxItem Content="Pauziran"/>
+                            <ComboBoxItem Content="Istekao"/>
+                        </ComboBox>
+
+                    </StackPanel>
+
+                    <!-- DataGrid -->
+                    <DataGrid ItemsSource="{Binding Users}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                            <DataGridTextColumn Header="Membership" Binding="{Binding MembershipType}" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </StackPanel>
             </TabItem>
 
             <!-- Lokacije -->
             <TabItem Header="Locations">
-                <DataGrid ItemsSource="{Binding Locations}" AutoGenerateColumns="False" Margin="10">
+                <DataGrid ItemsSource="{Binding Locations}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" Margin="10">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
@@ -36,7 +115,7 @@
 
             <!-- Rezervacije -->
             <TabItem Header="Reservations">
-                <DataGrid ItemsSource="{Binding Reservations}" AutoGenerateColumns="False" Margin="10">
+                <DataGrid ItemsSource="{Binding Reservations}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" Margin="10">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
                         <DataGridTextColumn Header="User" Binding="{Binding UserName}" />
