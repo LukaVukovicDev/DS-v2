@@ -21,11 +21,23 @@ namespace CoworkingApp.BusinessLogic.Repositories
         }
         public void Add(User user)
         {
-            string sql = @"insert into Users
-(FirstName, LastName, Email, Phone, MembershipTypeId, MembershipStartDate, MembershipEndDate, Status)
-values
-(@FirstName, @LastName, @Email, @Phone, @MembershipTypeId, @MembershipStartDate, @MembershipEndDate, @Status";
-            _connection.Execute(sql, user);
+            string sql = @"INSERT INTO Users
+                  (FirstName, LastName, Email, Phone, MembershipTypeId, 
+                   MembershipStartDate, MembershipEndDate, Status)
+                  VALUES
+                  (@FirstName, @LastName, @Email, @Phone, @MembershipTypeId,
+                   @MembershipStartDate, @MembershipEndDate, @Status)";
+            _connection.Execute(sql, new
+            {
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.Phone,
+                user.MembershipTypeId,
+                user.MembershipStartDate,
+                user.MembershipEndDate,
+                Status = user.Status.ToString()
+            });
         }
 
         public void Delete(int id)
@@ -42,8 +54,23 @@ values
 
         public User GetById(int id)
         {
-            string sql = "SELECT * FROM Users WHERE Id = @Id";
-            return _connection.QueryFirstOrDefault<User>(sql, new { Id = id });
+            string sql = @"SELECT u.*, m.Id as MId, m.Name, m.Price, m.DurationDays, 
+                   m.MaxReservationHoursPerMonth, m.IncludesMeetingRooms, 
+                   m.MeetingRoomHoursPerMonth
+                   FROM Users u
+                   INNER JOIN MembershipTypes m ON u.MembershipTypeId = m.Id
+                   WHERE u.Id = @Id";
+
+            return _connection.Query<User, MembershipType, User>(
+                sql,
+                (user, membership) =>
+                {
+                    user.MembershipType = membership;
+                    return user;
+                },
+                new { Id = id },
+                splitOn: "MId"
+            ).FirstOrDefault();
         }
 
         public List<User> GetByLocation(int locationId)
@@ -68,22 +95,33 @@ values
         public List<User> GetByStatus(AccountStatus status)
         {
             string sql = "select * from Users where Status = @Status";
-            return _connection.Query<User>(sql, new { Status = status }).ToList();
+            return _connection.Query<User>(sql, new { Status = status.ToString() }).ToList();
         }
 
         public void Update(User user)
         {
-            string sql = @"update Users set
-FirstName = @FirstName
-LastName = @LastName
-Email = @Email
-Phone = @Phone
-MembershipTypeId = @MembershipTypeId
-MembershipStartDate = @MembershipStartDate,
-MembershipEndDate = @MembershipEndDate,
-Status = @Status
-where Id = @Id";
-            _connection.Execute(sql, user);
+            string sql = @"UPDATE Users SET
+                  FirstName = @FirstName,
+                  LastName = @LastName,
+                  Email = @Email,
+                  Phone = @Phone,
+                  MembershipTypeId = @MembershipTypeId,
+                  MembershipStartDate = @MembershipStartDate,
+                  MembershipEndDate = @MembershipEndDate,
+                  Status = @Status
+                  WHERE Id = @Id";
+            _connection.Execute(sql, new
+            {
+                user.Id,
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.Phone,
+                user.MembershipTypeId,
+                user.MembershipStartDate,
+                user.MembershipEndDate,
+                Status = user.Status.ToString()
+            });
         }
 
 

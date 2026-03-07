@@ -18,6 +18,7 @@ namespace CoworkingApp.BusinessLogic.Services
         private LocationService _locationService;
         private ResourceService _resourceService;
         private ReservationService _reservationService;
+        private MembershipService _membershipService;
 
         // Observer events — GUI subscribes to these
         public event Action<Reservation> ReservationCreated;
@@ -43,6 +44,7 @@ namespace CoworkingApp.BusinessLogic.Services
             _reservationService = new ReservationService(
                 reservationRepo, resourceRepo, locationRepo, userRepo
             );
+            _membershipService = new MembershipService(membershipRepo);
 
             // Forward reservation events to facade events
             _reservationService.ReservationCreated += (r) => ReservationCreated?.Invoke(r);
@@ -100,5 +102,11 @@ namespace CoworkingApp.BusinessLogic.Services
         public void CancelReservation(int id) => _reservationService.CancelReservation(id);
         public List<Reservation> GetUserReservations(int userId) => _reservationService.GetUserReservations(userId);
         public List<Reservation> GetReservationsByDateAndLocation(DateTime date, int locationId) => _reservationService.GetReservationsByDateAndLocation(date, locationId);
+        // ─── MembershipTypes ──────────────────────────────────
+        public List<MembershipType> GetAllMembershipTypes() => _membershipService.GetAll();
+        public MembershipType GetMembershipType(int id) => _membershipService.GetById(id);
+        public void AddMembershipType(MembershipType membershipType) => _membershipService.AddMembershipType(membershipType);
+        public void UpdateMembershipType(MembershipType membershipType) => _membershipService.UpdateMembershipType(membershipType);
+        public void DeleteMembershipType(int id) => _membershipService.DeleteMembershipType(id);
     }
 }
