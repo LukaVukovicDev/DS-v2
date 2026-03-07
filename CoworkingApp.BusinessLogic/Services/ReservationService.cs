@@ -1,4 +1,5 @@
-﻿using CoworkingApp.BusinessLogic.Models;
+﻿using CoworkingApp.BusinessLogic.Builders;
+using CoworkingApp.BusinessLogic.Models;
 using CoworkingApp.BusinessLogic.Repositories.Interfaces;
 using CoworkingApp.BusinessLogic.Validators;
 using System;
@@ -38,17 +39,20 @@ namespace CoworkingApp.BusinessLogic.Services
             };
         }
 
-        public void CreateReservation(Reservation reservation)
+        public void CreateReservation(ReservationBuilder builder)
+        {
+            Reservation reservation = builder.Build();
+            CreateReservation(reservation);
+        }
+
+        private void CreateReservation(Reservation reservation)
         {
             reservation.Status = ReservationStatus.Active;
-
-            foreach(IReservationValidator validator in _validators)
+            foreach (IReservationValidator validator in _validators)
             {
                 validator.Validate(reservation);
             }
-
             _reservationRepository.Add(reservation);
-
             OnReservationCreated(reservation);
         }
 

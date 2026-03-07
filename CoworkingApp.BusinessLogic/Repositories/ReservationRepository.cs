@@ -1,4 +1,5 @@
-﻿using CoworkingApp.BusinessLogic.Database;
+﻿using CoworkingApp.BusinessLogic.Adapters;
+using CoworkingApp.BusinessLogic.Database;
 using CoworkingApp.BusinessLogic.Models;
 using CoworkingApp.BusinessLogic.Repositories.Interfaces;
 using Dapper;
@@ -13,10 +14,13 @@ namespace CoworkingApp.BusinessLogic.Repositories
     public class ReservationRepository : IReservationRepository
     {
         private IDbConnection _connection;
+        private ISqlAdapter _adapter;
 
         public ReservationRepository()
         {
-            _connection = DatabaseConnection.GetInstance(null).GetConnection();
+            var dbConnection = DatabaseConnection.GetInstance(null);
+            _connection = dbConnection.GetConnection();
+            _adapter = dbConnection.GetAdapter();
         }
 
         public Reservation GetById(int id)
@@ -51,30 +55,32 @@ namespace CoworkingApp.BusinessLogic.Repositories
 
         public double GetMonthlyHoursUsed(int userId, int year, int month)
         {
-            string sql = @"SELECT COALESCE(SUM(
-                            DATEDIFF(MINUTE, StartDateTime, EndDateTime) / 60.0
-                          ), 0)
-                          FROM Reservations
-                          WHERE UserId = @UserId
-                          AND YEAR(StartDateTime) = @Year
-                          AND MONTH(StartDateTime) = @Month
-                          AND Status != 'Cancelled'";
-            return _connection.QueryFirstOrDefault<double>(sql, new { UserId = userId, Year = year, Month = month });
+            string sql = $@"SELECT COALESCE(SUM(
+                    DATEDIFF(MINUTE, StartDateTime, EndDateTime) / 60.0
+                  ), 0)
+                  FROM Reservations
+                  WHERE UserId = @UserId
+                  AND {_adapter.GetYearPart("StartDateTime")} = @Year
+                  AND {_adapter.GetMonthPart("StartDateTime")} = @Month
+                  AND Status != 'Cancelled'";
+            return _connection.QueryFirstOrDefault<double>(sql,
+                new { UserId = userId, Year = year, Month = month });
         }
 
         public double GetMonthlyMeetingRoomHoursUsed(int userId, int year, int month)
         {
-            string sql = @"SELECT COALESCE(SUM(
-                            DATEDIFF(MINUTE, r.StartDateTime, r.EndDateTime) / 60.0
-                          ), 0)
-                          FROM Reservations r
-                          INNER JOIN Resources res ON r.ResourceId = res.Id
-                          WHERE r.UserId = @UserId
-                          AND YEAR(r.StartDateTime) = @Year
-                          AND MONTH(r.StartDateTime) = @Month
-                          AND r.Status != 'Cancelled'
-                          AND res.Type = 'MeetingRoom'";
-            return _connection.QueryFirstOrDefault<double>(sql, new { UserId = userId, Year = year, Month = month });
+            string sql = $@"SELECT COALESCE(SUM(
+                    DATEDIFF(MINUTE, r.StartDateTime, r.EndDateTime) / 60.0
+                  ), 0)
+                  FROM Reservations r
+                  INNER JOIN Resources res ON r.ResourceId = res.Id
+                  WHERE r.UserId = @UserId
+                  AND {_adapter.GetYearPart("r.StartDateTime")} = @Year
+                  AND {_adapter.GetMonthPart("r.StartDateTime")} = @Month
+                  AND r.Status != 'Cancelled'
+                  AND res.Type = 'MeetingRoom'";
+            return _connection.QueryFirstOrDefault<double>(sql,
+                new { UserId = userId, Year = year, Month = month });
         }
 
         public void Add(Reservation reservation)

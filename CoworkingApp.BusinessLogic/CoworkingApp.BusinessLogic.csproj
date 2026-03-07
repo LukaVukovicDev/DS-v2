@@ -96,6 +96,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\ISqlAdapter.cs" />
+    <Compile Include="Adapters\MsSqlAdapter.cs" />
+    <Compile Include="Adapters\MySqlAdapter.cs" />
+    <Compile Include="Adapters\SqlAdapterFactory.cs" />
+    <Compile Include="Builders\ReservationBuilder.cs" />
     <Compile Include="Database\ConfigReader.cs" />
     <Compile Include="Database\DatabaseConnection.cs" />
     <Compile Include="Factories\ResourceFactory.cs" />
@@ -119,7 +124,11 @@
     <Compile Include="Repositories\ReservationRepository.cs" />
     <Compile Include="Repositories\ResourceRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\CoworkingFacade.cs" />
+    <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\ReservationService.cs" />
+    <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Validators\AvailabilityValidator.cs" />
     <Compile Include="Validators\HoursLimitValidator.cs" />
     <Compile Include="Validators\IReservationValidator.cs" />
