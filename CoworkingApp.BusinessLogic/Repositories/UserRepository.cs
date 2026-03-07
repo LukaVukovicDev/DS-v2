@@ -46,6 +46,19 @@ values
             return _connection.QueryFirstOrDefault<User>(sql, new { Id = id });
         }
 
+        public List<User> GetByLocation(int locationId)
+        {
+            string sql = @"SELECT u.* FROM Users u
+                  INNER JOIN Reservations r ON u.Id = r.UserId
+                  INNER JOIN Resources res ON r.ResourceId = res.Id
+                  WHERE res.LocationId = @LocationId
+                  AND u.Status = 'Active'
+                  GROUP BY u.Id, u.FirstName, u.LastName, u.Email, 
+                           u.Phone, u.MembershipTypeId, u.MembershipStartDate, 
+                           u.MembershipEndDate, u.Status";
+            return _connection.Query<User>(sql, new { LocationId = locationId }).ToList();
+        }
+
         public List<User> GetByMembershipType(int membershipTypeId)
         {
             string sql = "select * from Users where MembershipTypeId = @MembershipTypeId";

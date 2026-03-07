@@ -59,5 +59,18 @@ values
                           WHERE Id = @Id";
             _connection.Execute(sql, location);
         }
+        public LocationStats GetLocationStats(int locationId)
+        {
+            string sql = @"SELECT 
+                    l.Id AS LocationId,
+                    l.Name AS LocationName,
+                    COUNT(res.Id) AS TotalResources,
+                    SUM(CASE WHEN res.IsAvailable = 0 THEN 1 ELSE 0 END) AS CurrentlyReserved
+                  FROM Locations l
+                  LEFT JOIN Resources res ON l.Id = res.LocationId
+                  WHERE l.Id = @LocationId
+                  GROUP BY l.Id, l.Name";
+            return _connection.QueryFirstOrDefault<LocationStats>(sql, new { LocationId = locationId });
+        }
     }
 }

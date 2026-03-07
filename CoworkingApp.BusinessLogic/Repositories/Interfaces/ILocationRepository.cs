@@ -14,5 +14,6 @@ namespace CoworkingApp.BusinessLogic.Repositories.Interfaces
         void Add(Location location);
         void Update(Location location);
         void Delete(int id);
+        LocationStats GetLocationStats(int locationId);
     }
 }

@@ -101,6 +101,7 @@
     <Compile Include="Factories\ResourceFactory.cs" />
     <Compile Include="Models\Desk.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\LocationStats.cs" />
     <Compile Include="Models\MeetingRoom.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\PrivateOffice.cs" />
