@@ -119,11 +119,13 @@
     <Compile Include="Repositories\ReservationRepository.cs" />
     <Compile Include="Repositories\ResourceRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\ReservationService.cs" />
+    <Compile Include="Validators\AvailabilityValidator.cs" />
+    <Compile Include="Validators\HoursLimitValidator.cs" />
+    <Compile Include="Validators\IReservationValidator.cs" />
+    <Compile Include="Validators\WorkingHoursValidator.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Validators\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
