@@ -69,7 +69,7 @@ namespace CoworkingApp.BusinessLogic.Factories
                 Type = type,
                 Description = row.Description,
                 IsAvailable = row.IsAvailable,
-                Capacity = row.Capacity
+                Capacity = row.Capacity == null ? (int?)null : (int)row.Capacity
             };
         }
 

@@ -8,7 +8,7 @@ namespace CoworkingApp.BusinessLogic.Models
 {
     public class MembershipType
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int DurationDays { get; set; }

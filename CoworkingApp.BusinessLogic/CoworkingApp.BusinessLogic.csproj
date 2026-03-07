@@ -126,6 +126,7 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\CoworkingFacade.cs" />
     <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Services\MembershipService.cs" />
     <Compile Include="Services\ReservationService.cs" />
     <Compile Include="Services\ResourceService.cs" />
     <Compile Include="Services\UserService.cs" />

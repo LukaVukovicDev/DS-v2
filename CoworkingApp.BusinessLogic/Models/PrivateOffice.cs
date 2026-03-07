@@ -8,7 +8,7 @@ namespace CoworkingApp.BusinessLogic.Models
 {
     public class PrivateOffice : Resource
     {
-        public int RoomNumber { get; set; }
-        public int Capacity { get; set; }
+        public int? RoomNumber { get; set; }
+        public int? Capacity { get; set; }
     }
 }
