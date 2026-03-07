@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9 d17.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{E01229D5-A95E-480A-BF02-475B1B1ED3AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoworkingApp.BusinessLogic", "..\CoworkingApp.BusinessLogic\CoworkingApp.BusinessLogic.csproj", "{64D0189B-0578-4D2A-BDE3-DA0D2FBF54CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E01229D5-A95E-480A-BF02-475B1B1ED3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E01229D5-A95E-480A-BF02-475B1B1ED3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E01229D5-A95E-480A-BF02-475B1B1ED3AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64D0189B-0578-4D2A-BDE3-DA0D2FBF54CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64D0189B-0578-4D2A-BDE3-DA0D2FBF54CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64D0189B-0578-4D2A-BDE3-DA0D2FBF54CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64D0189B-0578-4D2A-BDE3-DA0D2FBF54CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
