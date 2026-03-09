@@ -1,0 +1,31 @@
+<Window x:Class="CoworkingApp.GUI.Dialogs.ReservationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Rezervacija" Height="380" Width="560" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid Margin="18">
+        <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="170"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Korisnik" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <ComboBox x:Name="UserComboBox" Grid.Column="1" Margin="0,0,0,10" DisplayMemberPath="FullName"/>
+            <TextBlock Grid.Row="1" Text="Lokacija" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <ComboBox x:Name="LocationComboBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" DisplayMemberPath="Name" SelectionChanged="LocationComboBox_SelectionChanged"/>
+            <TextBlock Grid.Row="2" Text="Resurs" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <ComboBox x:Name="ResourceComboBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" DisplayMemberPath="Name"/>
+            <TextBlock Grid.Row="3" Text="Početak" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <DatePicker x:Name="StartDatePicker" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10"/>
+            <TextBlock Grid.Row="4" Text="Vreme početka" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <TextBox x:Name="StartTimeTextBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10" Text="09:00"/>
+            <TextBlock Grid.Row="5" Text="Vreme kraja" Margin="0,0,10,0" VerticalAlignment="Center"/>
+            <TextBox x:Name="EndTimeTextBox" Grid.Row="5" Grid.Column="1" Text="11:00"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="Sačuvaj" Width="110" Margin="0,0,8,0" Click="Save_Click"/>
+            <Button Content="Otkaži" Width="110" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

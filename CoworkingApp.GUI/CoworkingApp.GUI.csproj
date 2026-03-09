@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>CoworkingApp.GUI</RootNamespace>
+    <AssemblyName>CoworkingApp.GUI</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoworkingApp.BusinessLogic\CoworkingApp.BusinessLogic.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,41 @@
+<Window x:Class="CoworkingApp.GUI.Dialogs.ResourceDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Resurs" Height="460" Width="560" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid Margin="18">
+        <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="180"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Lokacija" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <ComboBox x:Name="LocationComboBox" Grid.Column="1" Margin="0,0,0,10" DisplayMemberPath="Name"/>
+            <TextBlock Grid.Row="1" Text="Naziv" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <TextBox x:Name="NameTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10"/>
+            <TextBlock Grid.Row="2" Text="Tip" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <ComboBox x:Name="TypeComboBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" SelectionChanged="TypeComboBox_SelectionChanged"/>
+            <TextBlock Grid.Row="3" Text="Opis" Margin="0,0,10,10" VerticalAlignment="Top"/>
+            <TextBox x:Name="DescriptionTextBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" Height="60" AcceptsReturn="True" TextWrapping="Wrap"/>
+            <CheckBox x:Name="IsAvailableCheckBox" Grid.Row="4" Grid.ColumnSpan="2" Content="Dostupan" Margin="0,0,0,10"/>
+
+            <TextBlock x:Name="DeskSubtypeLabel" Grid.Row="5" Text="Pod-tip stola" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <ComboBox x:Name="DeskSubtypeComboBox" Grid.Row="5" Grid.Column="1" Margin="0,0,0,10"/>
+
+            <TextBlock x:Name="CapacityLabel" Grid.Row="6" Text="Kapacitet" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <TextBox x:Name="CapacityTextBox" Grid.Row="6" Grid.Column="1" Margin="0,0,0,10"/>
+
+            <CheckBox x:Name="ProjectorCheckBox" Grid.Row="7" Grid.ColumnSpan="2" Content="Projektor" Margin="0,0,0,8"/>
+            <CheckBox x:Name="TvCheckBox" Grid.Row="8" Grid.ColumnSpan="2" Content="TV" Margin="0,0,0,8"/>
+            <CheckBox x:Name="WhiteboardCheckBox" Grid.Row="9" Grid.ColumnSpan="2" Content="Tabla" Margin="0,0,0,8"/>
+            <CheckBox x:Name="OnlineEqCheckBox" Grid.Row="10" Grid.ColumnSpan="2" Content="Online meeting oprema" Margin="0,0,0,8"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="Sačuvaj" Width="110" Margin="0,0,8,0" Click="Save_Click"/>
+            <Button Content="Otkaži" Width="110" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

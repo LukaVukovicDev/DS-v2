@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CoworkingApp.BusinessLogic.Builders;
 using CoworkingApp.BusinessLogic.Database;
 using CoworkingApp.BusinessLogic.Models;
+using CoworkingApp.BusinessLogic.Report;
 using CoworkingApp.BusinessLogic.Repositories;
 
 namespace CoworkingApp.BusinessLogic.Services
@@ -19,6 +20,8 @@ namespace CoworkingApp.BusinessLogic.Services
         private ResourceService _resourceService;
         private ReservationService _reservationService;
         private MembershipService _membershipService;
+        private ReportService _reportService;
+        private ReportScheduler _reportScheduler;
 
         // Observer events — GUI subscribes to these
         public event Action<Reservation> ReservationCreated;
@@ -45,6 +48,7 @@ namespace CoworkingApp.BusinessLogic.Services
                 reservationRepo, resourceRepo, locationRepo, userRepo
             );
             _membershipService = new MembershipService(membershipRepo);
+            _reportService = new ReportService();
 
             // Forward reservation events to facade events
             _reservationService.ReservationCreated += (r) => ReservationCreated?.Invoke(r);
@@ -102,6 +106,29 @@ namespace CoworkingApp.BusinessLogic.Services
         public void CancelReservation(int id) => _reservationService.CancelReservation(id);
         public List<Reservation> GetUserReservations(int userId) => _reservationService.GetUserReservations(userId);
         public List<Reservation> GetReservationsByDateAndLocation(DateTime date, int locationId) => _reservationService.GetReservationsByDateAndLocation(date, locationId);
+        // ─── Reports / CSV ────────────────────────────────────
+        public List<ReportItem> GetMonthlyReport() => _reportService.GetMonthlyReport();
+        public List<ReportItem> GetReportByDateRange(DateTime from, DateTime to) => _reportService.GetReportByDateRange(from, to);
+        public string ExportReportToCsv(DateTime from, DateTime to, string folderPath = null)
+        {
+            var exporter = new CsvExporter();
+            var report = _reportService.GetReportByDateRange(from, to);
+            return exporter.Export(report, folderPath);
+        }
+
+        public void StartAutomaticCsvReporting(double intervalMs, string folderPath = null)
+        {
+            StopAutomaticCsvReporting();
+            _reportScheduler = new ReportScheduler(intervalMs, folderPath);
+            _reportScheduler.Start();
+        }
+
+        public void StopAutomaticCsvReporting()
+        {
+            if (_reportScheduler != null)
+                _reportScheduler.Stop();
+        }
+
         // ─── MembershipTypes ──────────────────────────────────
         public List<MembershipType> GetAllMembershipTypes() => _membershipService.GetAll();
         public MembershipType GetMembershipType(int id) => _membershipService.GetById(id);

@@ -1,0 +1,31 @@
+<Window x:Class="CoworkingApp.GUI.Dialogs.LocationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Lokacija" Height="360" Width="500" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid Margin="18">
+        <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="130"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Naziv" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <TextBox x:Name="NameTextBox" Grid.Column="1" Margin="0,0,0,10"/>
+            <TextBlock Grid.Row="1" Text="Adresa" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <TextBox x:Name="AddressTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10"/>
+            <TextBlock Grid.Row="2" Text="Grad" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <TextBox x:Name="CityTextBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10"/>
+            <TextBlock Grid.Row="3" Text="Radno vreme" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <TextBox x:Name="WorkingHoursTextBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" Text="08:00-20:00"/>
+            <TextBlock Grid.Row="4" Text="Max kapacitet" Margin="0,0,10,10" VerticalAlignment="Center"/>
+            <TextBox x:Name="MaxCapacityTextBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10"/>
+            <TextBlock Grid.Row="5" Text="Opis" Margin="0,0,10,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="DescriptionTextBox" Grid.Row="5" Grid.Column="1" AcceptsReturn="True" Height="80" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="Sačuvaj" Width="110" Margin="0,0,8,0" Click="Save_Click"/>
+            <Button Content="Otkaži" Width="110" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

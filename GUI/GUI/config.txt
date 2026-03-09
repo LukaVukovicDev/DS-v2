@@ -1,2 +1,2 @@
-TheRes System2
-Server=localhost;Database=CoWorkingDB;Trusted_Connection=True;
+NAjjACA FIRMETINA BAJO
+Server=localhost\NEMANJA;Database=CoWorkingDB;Trusted_Connection=True;
